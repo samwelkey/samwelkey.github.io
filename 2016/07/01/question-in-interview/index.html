@@ -106,7 +106,7 @@
 从资源文件加载
 
 一般我们使用Bitma">
-<meta property="og:updated_time" content="2016-07-06T15:36:45.000Z">
+<meta property="og:updated_time" content="2016-07-06T15:38:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android面试中问到的问题总结（持续更新）">
 <meta name="twitter:description" content="前言总结一些开发中很重要，但是被自己忽视了的问题。同时也是一些面试常见问题。
@@ -363,7 +363,7 @@
 <p>inSampleSize:表示对图像像素的缩放比例。假设值为2，表示decode后的图像的像素为原图像的1/2。在上面的代码里我们封装了个简单的getFitInSampleSize函数（将传入的option.outWidth和option.outHeight与控件的width和height对应相除再取其中较小的值）来获取一个适当的inSampleSize。</p>
 <p> 在设置了option的inSampleSize后我们将inJustDecodeBounds设置为false再次调用decode函数时就能生成bitmap了。</p>
 <p>Source Code:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public static Bitmap getFitSampleBitmap(String file_path, int width, int height) &#123;</span><br><span class="line">    BitmapFactory.Options options = new BitmapFactory.Options();</span><br><span class="line">    options.inJustDecodeBounds = true;</span><br><span class="line">    BitmapFactory.decodeFile(file_path, options);</span><br><span class="line">    options.inSampleSize = getFitInSampleSize(width, height, options);</span><br><span class="line">    options.inJustDecodeBounds = false;</span><br><span class="line">    return BitmapFactory.decodeFile(file_path, options);</span><br><span class="line">&#125;</span><br><span class="line">public static int getFitInSampleSize(int reqWidth, int reqHeight, BitmapFactory.Options options) &#123;</span><br><span class="line">    int inSampleSize = 1;</span><br><span class="line">    if (options.outWidth &gt; reqWidth || options.outHeight &gt; reqHeight) &#123;</span><br><span class="line">        int widthRatio = Math.round((float) options.outWidth / (float) reqWidth);</span><br><span class="line">        int heightRatio = Math.round((float) options.outHeight / (float) reqHeight);</span><br><span class="line">        inSampleSize = Math.min(widthRatio, heightRatio);</span><br><span class="line">    &#125;</span><br><span class="line">    return inSampleSize;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>#Android内存泄露的可能<br>一般内存泄漏(traditional memory leak)的原因是：当该对象的所有引用都已经释放了，对象仍未被释放。</p>
+<h1 id="Android内存泄露的可能"><a href="#Android内存泄露的可能" class="headerlink" title="Android内存泄露的可能"></a>Android内存泄露的可能</h1><p>一般内存泄漏(traditional memory leak)的原因是：当该对象的所有引用都已经释放了，对象仍未被释放。</p>
 <p>逻辑内存泄漏(logical memory leak)的原因是：当应用不再需要这个对象，当仍未释放该对象的所有引用。</p>
 <p>如果持有对象的强引用，垃圾回收器是无法在内存中回收这个对象。</p>
 <p>在Android开发中，最容易引发的内存泄漏问题的是Context。比如Activity的Context，就包含大量的内存引用，例如View Hierarchies和其他资源。一旦泄漏了Context，也意味泄漏它指向的所有对象。Android机器内存有限，太多的内存泄漏容易导致OOM。</p>
@@ -373,16 +373,16 @@
 <li>全局进程(process-global)的static变量。这个无视应用的状态，持有Activity的强引用的怪物。</li>
 <li>活在Activity生命周期之外的线程。没有清空对Activity的强引用。</li>
 </ul>
-<p>##Static Activities<br>在类中定义了静态Activity变量，把当前运行的Activity实例赋值于这个静态变量。<br>如果这个静态变量在Activity生命周期结束后没有清空，就导致内存泄漏。因为static变量是贯穿这个应用的生命周期的，所以被泄漏的Activity就会一直存在于应用的进程中，不会被垃圾回收器回收。</p>
-<p>##Static Views<br>类似的情况会发生在单例模式中，如果Activity经常被用到，那么在内存中保存一个实例是很实用的。正如之前所述，强制延长Activity的生命周期是相当危险而且不必要的，无论如何都不能这样做。</p>
+<h2 id="Static-Activities"><a href="#Static-Activities" class="headerlink" title="Static Activities"></a>Static Activities</h2><p>在类中定义了静态Activity变量，把当前运行的Activity实例赋值于这个静态变量。<br>如果这个静态变量在Activity生命周期结束后没有清空，就导致内存泄漏。因为static变量是贯穿这个应用的生命周期的，所以被泄漏的Activity就会一直存在于应用的进程中，不会被垃圾回收器回收。</p>
+<h2 id="Static-Views"><a href="#Static-Views" class="headerlink" title="Static Views"></a>Static Views</h2><p>类似的情况会发生在单例模式中，如果Activity经常被用到，那么在内存中保存一个实例是很实用的。正如之前所述，强制延长Activity的生命周期是相当危险而且不必要的，无论如何都不能这样做。</p>
 <p>特殊情况：如果一个View初始化耗费大量资源，而且在一个Activity生命周期内保持不变，那可以把它变成static，加载到视图树上(View Hierachy)，像这样，当Activity被销毁时，应当释放资源。（译者注：示例代码中并没有释放内存，把这个static view置null即可，但是还是不建议用这个static view的方法）</p>
-<p>##Inner Classes<br>继续，假设Activity中有个内部类，这样做可以提高可读性和封装性。将如我们创建一个内部类，而且持有一个静态变量的引用，恭喜，内存泄漏就离你不远了。</p>
+<h2 id="Inner-Classes"><a href="#Inner-Classes" class="headerlink" title="Inner Classes"></a>Inner Classes</h2><p>继续，假设Activity中有个内部类，这样做可以提高可读性和封装性。将如我们创建一个内部类，而且持有一个静态变量的引用，恭喜，内存泄漏就离你不远了。</p>
 <p>内部类的优势之一就是可以访问外部类，不幸的是，导致内存泄漏的原因，就是内部类持有外部类实例的强引用。</p>
-<p>##Anonymous Classes<br>相似地，匿名类也维护了外部类的引用。所以内存泄漏很容易发生，当你在Activity中定义了匿名的AsyncTsk<br>。当异步任务在后台执行耗时任务期间，Activity不幸被销毁了，这个被AsyncTask持有的Activity实例就不会被垃圾回收器回收，直到异步任务结束。</p>
-<p>##Handler<br>同样道理，定义匿名的Runnable，用匿名类Handler执行。Runnable内部类会持有外部类的隐式引用，被传递到Handler的消息队列MessageQueue中，在Message消息没有被处理之前，Activity实例不会被销毁了，于是导致内存泄漏。</p>
-<p>##Threads<br>类似于Asyntask。</p>
-<p>##TimerTask<br>只要是匿名类的实例，不管是不是在工作线程，都会持有Activity的引用，导致内存泄漏。</p>
-<p>##Sensor Manager<br>最后，通过Context.getSystemService(int name)可以获取系统服务。这些服务工作在各自的进程中，帮助应用处理后台任务，处理硬件交互。如果需要使用这些服务，可以注册监听器，这会导致服务持有了Context的引用，如果在Activity销毁的时候没有注销这些监听器，会导致内存泄漏。</p>
+<h2 id="Anonymous-Classes"><a href="#Anonymous-Classes" class="headerlink" title="Anonymous Classes"></a>Anonymous Classes</h2><p>相似地，匿名类也维护了外部类的引用。所以内存泄漏很容易发生，当你在Activity中定义了匿名的AsyncTsk<br>。当异步任务在后台执行耗时任务期间，Activity不幸被销毁了，这个被AsyncTask持有的Activity实例就不会被垃圾回收器回收，直到异步任务结束。</p>
+<h2 id="Handler"><a href="#Handler" class="headerlink" title="Handler"></a>Handler</h2><p>同样道理，定义匿名的Runnable，用匿名类Handler执行。Runnable内部类会持有外部类的隐式引用，被传递到Handler的消息队列MessageQueue中，在Message消息没有被处理之前，Activity实例不会被销毁了，于是导致内存泄漏。</p>
+<h2 id="Threads"><a href="#Threads" class="headerlink" title="Threads"></a>Threads</h2><p>类似于Asyntask。</p>
+<h2 id="TimerTask"><a href="#TimerTask" class="headerlink" title="TimerTask"></a>TimerTask</h2><p>只要是匿名类的实例，不管是不是在工作线程，都会持有Activity的引用，导致内存泄漏。</p>
+<h2 id="Sensor-Manager"><a href="#Sensor-Manager" class="headerlink" title="Sensor Manager"></a>Sensor Manager</h2><p>最后，通过Context.getSystemService(int name)可以获取系统服务。这些服务工作在各自的进程中，帮助应用处理后台任务，处理硬件交互。如果需要使用这些服务，可以注册监听器，这会导致服务持有了Context的引用，如果在Activity销毁的时候没有注销这些监听器，会导致内存泄漏。</p>
 
       
     </div>
@@ -531,7 +531,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#加载高像素图像，如何减少内存消耗"><span class="nav-number">2.</span> <span class="nav-text">加载高像素图像，如何减少内存消耗</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#图像的加载方式"><span class="nav-number">2.1.</span> <span class="nav-text">图像的加载方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存去哪了"><span class="nav-number">2.2.</span> <span class="nav-text">内存去哪了</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决办法"><span class="nav-number">2.3.</span> <span class="nav-text">解决办法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码部分"><span class="nav-number">2.4.</span> <span class="nav-text">代码部分</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#加载高像素图像，如何减少内存消耗"><span class="nav-number">2.</span> <span class="nav-text">加载高像素图像，如何减少内存消耗</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#图像的加载方式"><span class="nav-number">2.1.</span> <span class="nav-text">图像的加载方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存去哪了"><span class="nav-number">2.2.</span> <span class="nav-text">内存去哪了</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决办法"><span class="nav-number">2.3.</span> <span class="nav-text">解决办法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码部分"><span class="nav-number">2.4.</span> <span class="nav-text">代码部分</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android内存泄露的可能"><span class="nav-number">3.</span> <span class="nav-text">Android内存泄露的可能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Static-Activities"><span class="nav-number">3.1.</span> <span class="nav-text">Static Activities</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Static-Views"><span class="nav-number">3.2.</span> <span class="nav-text">Static Views</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Inner-Classes"><span class="nav-number">3.3.</span> <span class="nav-text">Inner Classes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Anonymous-Classes"><span class="nav-number">3.4.</span> <span class="nav-text">Anonymous Classes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Handler"><span class="nav-number">3.5.</span> <span class="nav-text">Handler</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Threads"><span class="nav-number">3.6.</span> <span class="nav-text">Threads</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TimerTask"><span class="nav-number">3.7.</span> <span class="nav-text">TimerTask</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sensor-Manager"><span class="nav-number">3.8.</span> <span class="nav-text">Sensor Manager</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
