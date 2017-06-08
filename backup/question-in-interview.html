@@ -93,9 +93,9 @@
 从资源文件加载
 
 一般我们使用Bitma">
-<meta property="og:type" content="article">
+<meta property="og:type" content="website">
 <meta property="og:title" content="Android面试中问到的问题总结（持续更新）">
-<meta property="og:url" content="http://yoursite.com/2016/07/01/question-in-interview/index.html">
+<meta property="og:url" content="http://yoursite.com/backup/question-in-interview.html">
 <meta property="og:site_name" content="什么爱，望着就全都明白">
 <meta property="og:description" content="前言总结一些开发中很重要，但是被自己忽视了的问题。同时也是一些面试常见问题。
 加载高像素图像，如何减少内存消耗加载图像作为Android开发中内存消耗比较多的一部分，怎样在一个较小分辨率的ImageView中加载一个高分辨率的图像，同时又要避免OOM便成为了一个实际开发中经常遇到的问题。
@@ -138,9 +138,15 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/07/01/question-in-interview/"/>
+  <link rel="canonical" href="http://yoursite.com/backup/question-in-interview.html"/>
 
-  <title> Android面试中问到的问题总结（持续更新） | 什么爱，望着就全都明白 </title>
+  <title>
+  
+
+  
+    Android面试中问到的问题总结（持续更新） | 什么爱，望着就全都明白
+  
+</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -161,7 +167,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -261,92 +267,8 @@
 
   <div id="posts" class="posts-expand">
     
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
     
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                Android面试中问到的问题总结（持续更新）
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-01T14:09:32+08:00" content="2016-07-01">
-              2016-07-01
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/严肃脸/" itemprop="url" rel="index">
-                    <span itemprop="name">严肃脸</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/01/question-in-interview/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/01/question-in-interview/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>总结一些开发中很重要，但是被自己忽视了的问题。<br>同时也是一些面试常见问题。</p>
+      <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>总结一些开发中很重要，但是被自己忽视了的问题。<br>同时也是一些面试常见问题。</p>
 <h1 id="加载高像素图像，如何减少内存消耗"><a href="#加载高像素图像，如何减少内存消耗" class="headerlink" title="加载高像素图像，如何减少内存消耗"></a>加载高像素图像，如何减少内存消耗</h1><p>加载图像作为Android开发中内存消耗比较多的一部分，怎样在一个较小分辨率的ImageView中加载一个高分辨率的图像，同时又要避免OOM便成为了一个实际开发中经常遇到的问题。</p>
 <h2 id="图像的加载方式"><a href="#图像的加载方式" class="headerlink" title="图像的加载方式"></a>图像的加载方式</h2><p>正常来说，针对图像来源分为：</p>
 <ul>
@@ -384,55 +306,7 @@
 <h2 id="TimerTask"><a href="#TimerTask" class="headerlink" title="TimerTask"></a>TimerTask</h2><p>只要是匿名类的实例，不管是不是在工作线程，都会持有Activity的引用，导致内存泄漏。</p>
 <h2 id="Sensor-Manager"><a href="#Sensor-Manager" class="headerlink" title="Sensor Manager"></a>Sensor Manager</h2><p>最后，通过Context.getSystemService(int name)可以获取系统服务。这些服务工作在各自的进程中，帮助应用处理后台任务，处理硬件交互。如果需要使用这些服务，可以注册监听器，这会导致服务持有了Context的引用，如果在Activity销毁的时候没有注销这些监听器，会导致内存泄漏。</p>
 
-      
-    </div>
-
-    <div>
-      
-        
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/06/30/summary-of-project/" rel="next" title="项目中的一些总结——ListView结合BaseAdapter">
-                <i class="fa fa-chevron-left"></i> 项目中的一些总结——ListView结合BaseAdapter
-              </a>
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/08/segmentation/" rel="prev" title="分割线">
-                分割线 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
+    
   </div>
 
 
@@ -443,8 +317,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/07/01/question-in-interview/"
-           data-title="Android面试中问到的问题总结（持续更新）" data-url="http://yoursite.com/2016/07/01/question-in-interview/">
+      <div class="ds-thread" data-thread-key="backup/question-in-interview.html"
+           data-title="Android面试中问到的问题总结（持续更新）" data-url="http://yoursite.com/backup/question-in-interview.html">
       </div>
     
   </div>
@@ -468,17 +342,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/myAvatar.jpg"
@@ -489,7 +354,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-count">3</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -497,7 +362,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">1</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -506,7 +371,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -528,17 +393,6 @@
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#加载高像素图像，如何减少内存消耗"><span class="nav-number">2.</span> <span class="nav-text">加载高像素图像，如何减少内存消耗</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#图像的加载方式"><span class="nav-number">2.1.</span> <span class="nav-text">图像的加载方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存去哪了"><span class="nav-number">2.2.</span> <span class="nav-text">内存去哪了</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决办法"><span class="nav-number">2.3.</span> <span class="nav-text">解决办法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码部分"><span class="nav-number">2.4.</span> <span class="nav-text">代码部分</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android内存泄露的可能"><span class="nav-number">3.</span> <span class="nav-text">Android内存泄露的可能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Static-Activities"><span class="nav-number">3.1.</span> <span class="nav-text">Static Activities</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Static-Views"><span class="nav-number">3.2.</span> <span class="nav-text">Static Views</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Inner-Classes"><span class="nav-number">3.3.</span> <span class="nav-text">Inner Classes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Anonymous-Classes"><span class="nav-number">3.4.</span> <span class="nav-text">Anonymous Classes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Handler"><span class="nav-number">3.5.</span> <span class="nav-text">Handler</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Threads"><span class="nav-number">3.6.</span> <span class="nav-text">Threads</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TimerTask"><span class="nav-number">3.7.</span> <span class="nav-text">TimerTask</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sensor-Manager"><span class="nav-number">3.8.</span> <span class="nav-text">Sensor Manager</span></a></li></ol></li></ol></div>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -635,10 +489,6 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
-
-
 
   
 
